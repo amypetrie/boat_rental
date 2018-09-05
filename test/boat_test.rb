@@ -1,6 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/boat'
+require './lib/renter'
+require './lib/dock'
 
 class TestBoat < Minitest::Test
 
@@ -45,4 +47,10 @@ class TestBoat < Minitest::Test
     assert_equal 3, kayak.hours_rented
   end
 
+  def test_you_can_add_optional_renter_object
+    kayak = Boat.new(:kayak, 20)
+    renter = Renter.new("Patrick Star", "4242424242424242")
+
+    assert_equal [renter], kayak.add_renter(renter)
+  end
 end
