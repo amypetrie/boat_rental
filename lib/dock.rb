@@ -4,15 +4,15 @@ class Dock
   attr_reader :name,
               :max_rental_time,
               :revenue,
-              :boats_rented,
-              :boats_returned
+              :boats_rented
+              # :boats_returned
 
   def initialize(name, max_rental_time)
     @name = name
     @max_rental_time = max_rental_time
     @revenue = 0
     @boats_rented = []
-    @boats_returned = []
+    # @boats_returned = []
   end
 
   def rent(boat_obj, renter_obj)
@@ -21,7 +21,10 @@ class Dock
 
   def log_hour
     @boats_rented.each do |boat|
-      @revenue += boat.price_per_hour
+      if boat.hours_rented < max_rental_time
+        @revenue += boat.price_per_hour
+        boat.add_hour
+      end
     end
   end
 
